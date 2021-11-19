@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import h5py
 import cv2
 from copy import deepcopy
+from tqdm import tqdm
 import os
 
 
@@ -27,8 +28,9 @@ def load_h5(filename):
     dict_to_load = {}
     try:
         with h5py.File(filename, 'r') as f:
+            print(f'opened file {filename}. Loading...')
             keys = [key for key in f.keys()]
-            for key in keys:
+            for key in tqdm(keys):
                 dict_to_load[key] = f[key][()]
     except:
         print('Cannot find file {}'.format(filename))
